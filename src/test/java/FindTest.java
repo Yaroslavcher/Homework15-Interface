@@ -25,4 +25,10 @@ public class FindTest {
         Ticket[] expected = {};
         assertArrayEquals(expected, manager.findFromTo("SVO", "TGK"));
     }
+    @Test
+    public void shouldFindAll() {
+        doReturn(tickets).when(repo).getTickets();
+        Ticket[] expected = {ticket2, ticket6, ticket4, ticket5};
+        assertArrayEquals(expected, manager.findAll("VKO", "TGK", Comparator<Ticket>));
+    }
 }
