@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.Mockito;
@@ -13,22 +14,24 @@ public class FindTest {
     Repository repo = Mockito.mock(Repository.class);
     Manager manager = new Manager(repo);
 
+    @BeforeEach
+    public void b4eachTest () {
+        doReturn(tickets).when(repo).getTickets();
+    }
     @Test
     public void shouldFindFromTo() {
-        doReturn(tickets).when(repo).getTickets();
         Ticket[] expected = {ticket5, ticket2, ticket4, ticket6};
         assertArrayEquals(expected, manager.findFromTo("VKO", "TGK"));
     }
     @Test
     public void shouldFindNone() {
-        doReturn(tickets).when(repo).getTickets();
         Ticket[] expected = {};
         assertArrayEquals(expected, manager.findFromTo("SVO", "TGK"));
     }
     @Test
     public void shouldFindAll() {
-        doReturn(tickets).when(repo).getTickets();
+        TicketTimeComparator comparator = new TicketTimeComparator();
         Ticket[] expected = {ticket2, ticket6, ticket4, ticket5};
-        assertArrayEquals(expected, manager.findAll("VKO", "TGK", Comparator<Ticket>));
+        assertArrayEquals(expected, manager.findAll("VKO", "TGK", comparator));
     }
 }

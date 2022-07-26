@@ -25,7 +25,8 @@ public class Manager {
         }
         return result;
     }
-    public Ticket[] findAll(String from, String to, Comparator<Ticket>comparator) {
+
+    public Ticket[] findAll(String from, String to, Comparator<Ticket> comparator) {
         Ticket[] result = new Ticket[0];
         for (Ticket ticket : repo.getTickets()) {
             if (ticket.getFrom() == from) {
@@ -36,7 +37,6 @@ public class Manager {
                     }
                     tmp[tmp.length - 1] = ticket;
                     result = tmp;
-                    TicketTimeComparator comparator = new TicketTimeComparator();
                     Arrays.sort(result, comparator);
                 }
             }
